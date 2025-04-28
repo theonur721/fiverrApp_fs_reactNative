@@ -20,6 +20,8 @@
 -- iconsax (ikonlar için),
 -- usenavigation (sayfalama için),
 -- axios (api istekleri için),
+-- asyncStorage (kullanıcı verilerini locale kaydetme için)
+-- formik-yup (auth form alanı için için)
 --% redux-toolkit (state yönetimi için)
 --§ react-toastify (bildirimler için),
 --§ moment (zaman formatlar),
@@ -33,5 +35,7 @@
 -- uiverse (toggle için - yüklemeye gerek yok),
 -- state yönetimi için: context
 -- frontend backend dosya gönderim ve erişimin için multer kullanıldı,
+
 # fiverrApp-fs
+
 # fiverrApp-fs

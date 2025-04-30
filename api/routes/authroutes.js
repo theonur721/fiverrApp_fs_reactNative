@@ -1,14 +1,16 @@
 import express from "express";
-import { login, logout, register } from "../controllers/authcontrollers.js";
+import { register, login, logout } from "../controllers/authcontrollers.js";
+import upload from "../utils/multer.js";
 
-// router oluştur
 const router = express.Router();
 
-// yolları belirle
-router.post("/register", register);
+// KAYIT
+router.post("/register", upload.single("photo"), register);
 
+// GİRİŞ
 router.post("/login", login);
 
+// ÇIKIŞ
 router.post("/logout", logout);
 
 export default router;

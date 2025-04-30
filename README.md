@@ -22,6 +22,8 @@
 -- axios (api istekleri için),
 -- asyncStorage (kullanıcı verilerini locale kaydetme için)
 -- formik-yup (auth form alanı için için)
+-- react-native-image-picker
+-- npm install react-native-toast-message
 --% redux-toolkit (state yönetimi için)
 --§ react-toastify (bildirimler için),
 --§ moment (zaman formatlar),

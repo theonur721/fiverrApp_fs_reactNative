@@ -5,16 +5,18 @@ import jwt from "jsonwebtoken";
 import cloudinary from "../utils/cloudinary.js";
 import { Readable } from "stream";
 
-// KAYIT YAPMA
+// KAYIT OLMA
 export const register = async (req, res, next) => {
   try {
     const hashedPassword = bcrypt.hashSync(req.body.password, 12);
 
-    let photoUrl = "default.jpg";
+    let photoUrl = "default.jpg"; // Varsayılan fotoğraf
 
     // Fotoğraf varsa Cloudinary'e yükle
     if (req.file) {
-      const streamUpload = (req) => {
+      console.log("Received file:", req.file); // Fotoğrafın geldiğini kontrol et
+
+      const streamUpload = (buffer) => {
         return new Promise((resolve, reject) => {
           const stream = cloudinary.uploader.upload_stream(
             {
@@ -30,24 +32,28 @@ export const register = async (req, res, next) => {
           );
 
           const readable = new Readable();
-          readable.push(req.file.buffer);
+          readable.push(buffer);
           readable.push(null);
           readable.pipe(stream);
         });
       };
 
-      const result = await streamUpload(req);
-      photoUrl = result.secure_url;
+      const result = await streamUpload(req.file.buffer);
+      // Fotoğrafı Cloudinary'e yükle
+      photoUrl = result.secure_url; // Cloudinary'den gelen güvenli URL
+    } else {
+      console.log("No file received, using default image."); // Fotoğraf yoksa varsayılan resim kullan
     }
 
-    req.body.photo = photoUrl;
+    req.body.photo = photoUrl; // Fotoğraf URL'sini body'ye ekliyoruz
 
+    // Yeni kullanıcıyı oluşturuyoruz
     const newUser = await User.create({
       ...req.body,
       password: hashedPassword,
     });
 
-    newUser.password = null;
+    newUser.password = null; // Şifreyi kullanıcı verisinden çıkarıyoruz
 
     res.status(200).json({
       message: "Kayıt Başarılı",
@@ -61,6 +67,7 @@ export const register = async (req, res, next) => {
 
 // GİRİŞ YAPMA
 export const login = async (req, res, next) => {
+  console.log("Login request body:", req.body);
   try {
     const user = await User.findOne({ username: req.body.username });
 

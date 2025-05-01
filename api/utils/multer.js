@@ -1,11 +1,7 @@
 import multer from "multer";
 
-const storage = multer.diskStorage({
-  filename: function (req, file, cb) {
-    console.log("GELEN DOSYA", file);
-    cb(null, file.originalname);
-  },
-});
+// Fotoğrafı hafızaya almak için Multer konfigürasyonu
+const storage = multer.memoryStorage(); // Hafızaya yükleyecek şekilde ayarlandı
 
 const upload = multer({ storage: storage });
 

@@ -1,35 +1,52 @@
 import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
-import authRouter from "./routes/authroutes.js";
 import morgan from "morgan";
 import cors from "cors";
+import cookieParser from "cookie-parser";
+import authrouter from "./routes/authroutes.js";
+import gigrouter from "./routes/gigroutes.js";
 
-//.env dosyasından verileri oku
 dotenv.config();
 
-// veritabanı ile bağlantı kur
-mongoose
-  .connect(process.env.DATABASE_URL)
-  .then(() => console.log("🍀 Veritabanı bağlantısı başarılı"))
-  .catch((err) => console.log("Veritabanına bağlanılamadı", err));
-
-// express oluştur
+// express'i oluştur
 const app = express();
 
-// route tanımla
-app.route("/health").get((req, res) => {
-  res.json("Server çalıışıyor");
+// mongoose ile veritabanı ile bağlantı kur
+mongoose
+  .connect(process.env.DATABASE_URL)
+  .then(() => console.log("🍀 veritabanı ile bağlantı kuruldu"))
+  .catch((err) => console.log("🍁 veritabanı ile bağlantı kurulamadı", err));
+
+//*** MİDDLEWARES ***
+//(a) body/query alanındaki json içeriğinin işlenmesini sağlar
+app.use(express.json());
+
+//(b) api isteklerini gösteren morgan middlewaresi
+app.use(morgan("dev"));
+
+// (c) cors hatalarını önler
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    credentials: true,
+    methods: ["GET", "POST", "DELETE", "PATCH"],
+  })
+);
+
+// (d) istekle gelen çerezleri işler
+app.use(cookieParser());
+
+// kontrol route
+app.route("health").get((req, res) => {
+  res.json("server çalışıyor");
 });
 
-//* MİDLLEWARES
-// (a) body-query alanında json içeriğinin işlenmesini sağlar
-app.use(express.json());
-// (b) konsola istek bilgilerini yazar
-app.use(morgan("dev"));
-// (c) cors hatalarını önler
-app.use(cors({ origin: "http://localhost:5173", credentials: true }));
-// (c) hatalı yönetimi için
+// routleri tanımla
+app.use("/api/auth", authrouter);
+app.use("/api/gigs", gigrouter);
+
+// hatalı yönetimi için
 // - controllerden yapılan yönlendirmeler için bu middleware çalışacak
 app.use((err, req, res, next) => {
   console.log("😡 HATA MEYDANA GELDİ 😡");
@@ -43,10 +60,7 @@ app.use((err, req, res, next) => {
   });
 });
 
-// routeri tanımla
-app.use("/api/auth", authRouter);
-
-// port belirle
-app.listen(process.env.PORT, (req, res) =>
-  console.log(`🏁 Server ${process.env.PORT} portunu dinlemeye başladı`)
-);
+// portu tanıt
+app.listen(process.env.PORT, (req, res) => {
+  console.log(`🏁 APİ ${process.env.PORT} portunu dinlemeye başladı`);
+});

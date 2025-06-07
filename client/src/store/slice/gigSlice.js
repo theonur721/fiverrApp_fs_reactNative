@@ -1,5 +1,6 @@
 import {createSlice} from '@reduxjs/toolkit';
 import {fetchGigs} from '../actions/gigActions';
+import {addGig} from '../actions/gigActions';
 
 const initialState = {
   gigs: [],
@@ -38,6 +39,18 @@ const gigSlice = createSlice({
       .addCase(fetchGigs.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload || 'Something went wrong';
+      })
+      .addCase(addGig.pending, state => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(addGig.fulfilled, (state, action) => {
+        state.loading = false;
+        state.gigs.push(action.payload);
+      })
+      .addCase(addGig.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
       });
   },
 });

@@ -1,5 +1,6 @@
 import error from "../utils/error.js";
 import Gig from "../models/gigmodel.js";
+import cloudinary from "../utils/cloudinary.js"; // doğru yolu kullan
 
 // GİGLERİ AL - filtreleme ayarlarını oluşturan method
 const buildFilter = (query) => {
@@ -69,20 +70,53 @@ export const getGig = async (req, res, next) => {
 
 // GİG OLUŞTUR
 export const createGig = async (req, res, next) => {
-  // (1) isteği atan kullanıcının hesabı seller değilse hata gönder
   if (!req.isSeller)
-    return next(error(423, "Only Seller Account use Create GİG"));
+    return next(error(423, "Only Seller Account can create GIG"));
 
   try {
-    // (2) yeni hizmet oluştur
-    const savedGig = await Gig.create({ ...req.body, user: req.userId });
+    let imageUrl = "";
 
-    // (2) cliente cevap gönder
+    // (1) Eğer kullanıcı bir dosya yolladıysa Cloudinary'e yükle
+    if (req.file) {
+      const uploadResult = await cloudinary.uploader.upload_stream(
+        {
+          resource_type: "image",
+          folder: "fiverrClone/gigs", // klasör tercihin
+        },
+        async (error, result) => {
+          if (error) return next(error(400, error.message));
 
-    res.status(200).json({
-      message: "success createGig ✅",
-      gig: savedGig,
-    });
+          // (2) Cloudinary'den gelen görsel URL’si
+          imageUrl = result.secure_url;
+
+          // (3) gig oluştur
+          const savedGig = await Gig.create({
+            ...req.body,
+            user: req.userId,
+            cover: imageUrl, // modelin cover alanı varsa
+          });
+
+          res.status(200).json({
+            message: "success createGig ✅",
+            gig: savedGig,
+          });
+        }
+      );
+
+      // (4) Multer'den gelen buffer'ı yazdır
+      uploadResult.end(req.file.buffer);
+    } else {
+      // (5) Dosya yoksa varsayılan şekilde gig oluştur
+      const savedGig = await Gig.create({
+        ...req.body,
+        user: req.userId,
+      });
+
+      res.status(200).json({
+        message: "success createGig ✅ (no image)",
+        gig: savedGig,
+      });
+    }
   } catch (err) {
     next(error(400, err.message));
   }

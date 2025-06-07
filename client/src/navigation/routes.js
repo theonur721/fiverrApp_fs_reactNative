@@ -5,4 +5,6 @@ export const ROUTES = {
   LOGIN: 'Login',
   REGISTER: 'Register',
   GIGS: 'Gigs',
+  ADDGIG: 'AddGig',
+  GIGDETAIL: 'GigDetail',
 };

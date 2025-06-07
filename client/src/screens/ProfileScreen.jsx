@@ -13,10 +13,13 @@ import {useDispatch, useSelector} from 'react-redux';
 import {COLORS} from '../theme/colors';
 import LoginRegister from '../components/LoginRegister';
 import {logoutUser} from '../store/actions/authActions';
+import {useNavigation} from '@react-navigation/native';
+import {ROUTES} from '../navigation/routes';
 
 const ProfileScreen = () => {
   const {user} = useSelector(state => state.auth);
   const dispatch = useDispatch();
+  const navigation = useNavigation();
 
   const handleLogout = () => {
     dispatch(logoutUser());
@@ -72,7 +75,9 @@ const ProfileScreen = () => {
               <Text style={styles.buttonText}>Services</Text>
             </TouchableOpacity>
             <View style={styles.separator} />
-            <TouchableOpacity style={styles.buttonContainer}>
+            <TouchableOpacity
+              onPress={() => navigation.navigate(ROUTES.ADDGIG)}
+              style={styles.buttonContainer}>
               <Text style={styles.buttonText}>Add Service</Text>
             </TouchableOpacity>
             <View style={styles.separator} />

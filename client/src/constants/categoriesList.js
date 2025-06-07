@@ -9,3 +9,15 @@ export const categoriesList = [
   {name: 'Business Consulting', icon: '💼'},
   {name: 'Virtual Assistant', icon: '👨‍💼'},
 ];
+
+export const categoriesNames = [
+  'Web Development',
+  'Graphic Design',
+  'Digital Marketing',
+  'Content Writing',
+  'Video Editing',
+  'AI Services',
+  'Music Production',
+  'Business Consulting',
+  'Virtual Assistant',
+];

@@ -13,6 +13,7 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import {COLORS} from '../../theme/colors';
 import {useNavigation} from '@react-navigation/native';
 import {defaultScreenStyle} from '../../constants/defaultScreenStyles';
+import {ROUTES} from '../../navigation/routes';
 
 const GigScreen = () => {
   const navigation = useNavigation();
@@ -58,7 +59,7 @@ const GigScreen = () => {
           <TouchableOpacity
             style={styles.gigItem}
             onPress={() => {
-              // detay sayfasına gitme gibi aksiyon varsa buraya ekleyebilirsin
+              navigation.navigate(ROUTES.GIGDETAIL, {gigId: item._id});
             }}>
             <Image
               source={{uri: item.cover}}

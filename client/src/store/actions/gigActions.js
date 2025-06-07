@@ -14,3 +14,17 @@ export const fetchGigs = createAsyncThunk(
     }
   },
 );
+
+export const addGig = createAsyncThunk(
+  'gigs/addGig',
+  async (gigData, thunkAPI) => {
+    try {
+      const response = await api.post('/gigs', gigData);
+      return response.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(
+        error.response.data || 'Error adding gig',
+      );
+    }
+  },
+);

@@ -75,13 +75,25 @@ const AddGigScreen = () => {
       cover: cover.uri,
       images: images.map(img => img.uri),
       features: features.split(',').map(f => f.trim()),
-      // backend tarafında user ID JWT ile alınmalı, burada eklenmesine gerek yok
     };
 
     dispatch(addGig(gigData))
       .unwrap()
       .then(() => {
         Alert.alert('Success', 'Gig added successfully');
+
+        // Formu sıfırla
+        setTitle('');
+        setDesc('');
+        setShortTitle('');
+        setShortDes('');
+        setDeliveryTime('');
+        setRevisionNumber('');
+        setPrice('');
+        setCategory(categoriesNames[0]);
+        setCover(null);
+        setImages([]);
+        setFeatures('');
       })
       .catch(err => {
         Alert.alert('Error', err.message || 'Failed to add gig');

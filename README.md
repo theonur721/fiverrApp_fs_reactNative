@@ -29,7 +29,7 @@
 --§ moment (zaman formatlar),
 --§ react-query (api istekleri için - axios'a göre kolaylaştırıyor),
 --§ tailwind (stillendirme için),
--- react-native-picker,
+-- react-native-picker (açılır liste şeklinde seçim yapma için) ,
 
 ### Proje Özellikleri
 

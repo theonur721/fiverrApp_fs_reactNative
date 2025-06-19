@@ -11,8 +11,8 @@
 -- dotenv (env ortam değişkenleri için),
 -- morgan (yaptığımız istekleri terminale yazdırır),
 -- cors ( cors hataları, veri aktarırken tarayıcı uyarıları vs için)
---§ multer (fotoğrafa erişmek için- frontendden backende dosya gönderirken kullanılmalıdır),
---§ cloudinary (bulut depolama için),
+-- multer (fotoğrafa erişmek için- frontendden backende dosya gönderirken kullanılmalıdır),
+-- cloudinary (bulut depolama için),
 
 ## Native
 
@@ -24,11 +24,10 @@
 -- formik-yup (auth form alanı için için)
 -- react-native-image-picker
 -- npm install react-native-toast-message
---% redux-toolkit (state yönetimi için)
+-- redux-toolkit (state yönetimi için)
 --§ react-toastify (bildirimler için),
 --§ moment (zaman formatlar),
 --§ react-query (api istekleri için - axios'a göre kolaylaştırıyor),
---§ tailwind (stillendirme için),
 -- react-native-picker (açılır liste şeklinde seçim yapma için) ,
 
 ### Proje Özellikleri

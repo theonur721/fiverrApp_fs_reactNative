@@ -34,8 +34,8 @@
 
 -- require yerine import modeli tercih edildi,
 -- hata middleware'i yapıldı kod tekrarı önlendi,
+-- protect middlewaresi ile user bilgilerini alma,
 -- uiverse (toggle için - yüklemeye gerek yok),
--- state yönetimi için: context
 -- frontend backend dosya gönderim ve erişimin için multer kullanıldı,
 
 # fiverrApp-fs

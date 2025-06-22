@@ -1,12 +1,12 @@
-import {FlatList, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
+import {FlatList, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {useDispatch} from 'react-redux';
+import {useNavigation} from '@react-navigation/native';
+import {setCategory} from '../../store/slice/gigSlice';
+import {fetchGigs} from '../../store/actions/gigActions';
 import {categoriesList} from '../../constants/categoriesList';
 import normalize from '../../utils/normalize';
 import {COLORS} from '../../theme/colors';
-import {useDispatch} from 'react-redux';
-import {setCategory} from '../../store/slice/gigSlice';
-import {fetchGigs} from '../../store/actions/gigActions';
-import {useNavigation} from '@react-navigation/native';
 import {ROUTES} from '../../navigation/routes';
 
 const Categories = () => {

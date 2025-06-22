@@ -1,3 +1,4 @@
+import React, {useEffect} from 'react';
 import {
   StyleSheet,
   Text,
@@ -5,18 +6,17 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, {useEffect} from 'react';
+import {SafeAreaView} from 'react-native-safe-area-context';
 import {useFormik} from 'formik';
 import * as Yup from 'yup';
-import Button from '../../components/Button';
-import {SafeAreaView} from 'react-native-safe-area-context';
+import {useDispatch, useSelector} from 'react-redux';
+import {useNavigation} from '@react-navigation/native';
+import {loginUser} from '../../store/actions/authActions';
 import {defaultScreenStyle} from '../../constants/defaultScreenStyles';
 import {COLORS} from '../../theme/colors';
-import {ArrowLeft2} from 'iconsax-react-native';
-import {useNavigation} from '@react-navigation/native';
 import {ROUTES} from '../../navigation/routes';
-import {useDispatch, useSelector} from 'react-redux';
-import {loginUser} from '../../store/actions/authActions';
+import Button from '../../components/Button';
+import {ArrowLeft2} from 'iconsax-react-native';
 
 const LoginScreen = () => {
   const navigation = useNavigation();

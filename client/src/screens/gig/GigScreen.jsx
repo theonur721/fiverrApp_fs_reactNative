@@ -1,19 +1,20 @@
+import React, {useEffect} from 'react';
 import {
   FlatList,
   Image,
   StyleSheet,
   Text,
-  View,
   TouchableOpacity,
+  View,
 } from 'react-native';
-import React, {useEffect} from 'react';
+import {SafeAreaView} from 'react-native-safe-area-context';
+import {useNavigation} from '@react-navigation/native';
 import {useDispatch, useSelector} from 'react-redux';
 import {fetchGigs} from '../../store/actions/gigActions';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import {COLORS} from '../../theme/colors';
-import {useNavigation} from '@react-navigation/native';
 import {defaultScreenStyle} from '../../constants/defaultScreenStyles';
+import {COLORS} from '../../theme/colors';
 import {ROUTES} from '../../navigation/routes';
+import normalize from '../../utils/normalize';
 
 const GigScreen = () => {
   const navigation = useNavigation();
@@ -22,7 +23,7 @@ const GigScreen = () => {
 
   useEffect(() => {
     dispatch(fetchGigs(filters));
-  }, [dispatch, filters.search, filters.category]); // search veya category değişirse yeniden fetch
+  }, [dispatch, filters.search, filters.category]);
 
   if (loading) {
     return (
@@ -92,50 +93,50 @@ export default GigScreen;
 
 const styles = StyleSheet.create({
   countText: {
-    fontSize: 16,
+    fontSize: normalize(16),
     fontWeight: '600',
     color: COLORS.primary,
-    paddingHorizontal: 16,
-    paddingTop: 12,
-    paddingBottom: 4,
+    paddingHorizontal: normalize(16),
+    paddingTop: normalize(12),
+    paddingBottom: normalize(4),
   },
   listContainer: {
-    paddingHorizontal: 10,
-    paddingBottom: 20,
+    paddingHorizontal: normalize(10),
+    paddingBottom: normalize(20),
   },
   row: {
     justifyContent: 'space-between',
-    marginBottom: 14,
+    marginBottom: normalize(14),
   },
   gigItem: {
-    marginBottom: 12,
+    marginBottom: normalize(12),
     backgroundColor: COLORS.white,
-    borderRadius: 10,
+    borderRadius: normalize(10),
     width: '48%',
-    padding: 10,
+    padding: normalize(10),
     shadowColor: '#000',
-    shadowOffset: {width: 0, height: 2},
+    shadowOffset: {width: 0, height: normalize(2)},
     shadowOpacity: 0.1,
-    shadowRadius: 4,
+    shadowRadius: normalize(4),
     elevation: 3,
   },
   gigImage: {
     width: '100%',
-    height: 100,
-    borderRadius: 10,
+    height: normalize(100),
+    borderRadius: normalize(10),
   },
   gigInfo: {
-    marginTop: 8,
+    marginTop: normalize(8),
   },
   gigTitle: {
-    fontSize: 14,
+    fontSize: normalize(14),
     fontWeight: '600',
     color: COLORS.black,
   },
   username: {
-    fontSize: 13,
+    fontSize: normalize(13),
     color: COLORS.secondary,
-    marginVertical: 4,
+    marginVertical: normalize(4),
   },
   footerRow: {
     flexDirection: 'row',
@@ -144,13 +145,13 @@ const styles = StyleSheet.create({
   },
   starText: {
     color: '#f1c40f',
-    fontSize: 13,
+    fontSize: normalize(13),
     fontWeight: '600',
   },
   price: {
     color: COLORS.primary,
     fontWeight: '700',
-    fontSize: 13,
+    fontSize: normalize(13),
   },
   center: {
     flex: 1,
@@ -159,5 +160,6 @@ const styles = StyleSheet.create({
   },
   errorText: {
     color: 'red',
+    fontSize: normalize(14),
   },
 });

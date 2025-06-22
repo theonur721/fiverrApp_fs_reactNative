@@ -37,7 +37,3 @@
 -- protect middlewaresi ile user bilgilerini alma,
 -- uiverse (toggle için - yüklemeye gerek yok),
 -- frontend backend dosya gönderim ve erişimin için multer kullanıldı,
-
-# fiverrApp-fs
-
-# fiverrApp-fs

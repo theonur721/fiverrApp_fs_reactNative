@@ -12,6 +12,7 @@ import {useRoute} from '@react-navigation/native';
 import {useSelector} from 'react-redux';
 import {COLORS} from '../../theme/colors';
 import {defaultScreenStyle} from '../../constants/defaultScreenStyles';
+import normalize from '../../utils/normalize';
 
 const {width} = Dimensions.get('window');
 
@@ -48,19 +49,16 @@ const GigDetail = () => {
     );
   }
 
-  // Görselleri cover + images olarak birleştiriyoruz
   const allImages = [gig.cover, ...(gig.images || [])];
 
   return (
     <ScrollView style={defaultScreenStyle.safeAreaContainer}>
-      {/* Başlık */}
       <View style={styles.titleContainer}>
         <Text style={styles.title}>{gig.title}</Text>
         <Text style={styles.username}>by {gig.user.username}</Text>
         <View style={styles.separator} />
       </View>
 
-      {/* Tüm görseller yatay scroll içinde */}
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}
@@ -74,7 +72,6 @@ const GigDetail = () => {
         )}
       </ScrollView>
 
-      {/* İçerik */}
       <View style={styles.content}>
         <View style={styles.row}>
           <Text style={styles.star}>★ {gig.starCount}</Text>
@@ -115,99 +112,99 @@ export default GigDetail;
 
 const styles = StyleSheet.create({
   titleContainer: {
-    paddingHorizontal: 16,
-    paddingTop: 6,
-    paddingBottom: 4,
-    marginBottom: 4,
+    paddingHorizontal: normalize(16),
+    paddingTop: normalize(6),
+    paddingBottom: normalize(4),
+    marginBottom: normalize(4),
     backgroundColor: '#fafafa',
     shadowColor: '#000',
-    shadowOffset: {width: 0, height: 1},
+    shadowOffset: {width: 0, height: normalize(1)},
     shadowOpacity: 0.1,
-    shadowRadius: 2,
+    shadowRadius: normalize(2),
     elevation: 2,
-    borderRadius: 8,
+    borderRadius: normalize(8),
   },
   title: {
-    fontSize: 24,
+    fontSize: normalize(24),
     fontWeight: '800',
     color: COLORS.black,
-    marginBottom: 2,
+    marginBottom: normalize(2),
     textShadowColor: 'rgba(0,0,0,0.1)',
-    textShadowOffset: {width: 0, height: 1},
-    textShadowRadius: 2,
+    textShadowOffset: {width: 0, height: normalize(1)},
+    textShadowRadius: normalize(2),
   },
   username: {
-    fontSize: 14,
+    fontSize: normalize(14),
     color: COLORS.secondary,
-    marginBottom: 4,
+    marginBottom: normalize(4),
   },
   separator: {
-    height: 1,
+    height: normalize(1),
     backgroundColor: COLORS.lightGray,
-    marginTop: 4,
+    marginTop: normalize(4),
   },
   imagesContainer: {
-    marginTop: 8,
-    paddingLeft: 16,
-    paddingVertical: 4,
-    marginBottom: 12,
+    marginTop: normalize(8),
+    paddingLeft: normalize(16),
+    paddingVertical: normalize(4),
+    marginBottom: normalize(12),
   },
   imageItem: {
     width: width / 2.5,
-    height: 130,
-    borderRadius: 12,
-    marginRight: 10,
+    height: normalize(130),
+    borderRadius: normalize(12),
+    marginRight: normalize(10),
   },
   noImagesText: {
-    paddingLeft: 16,
+    paddingLeft: normalize(16),
     color: COLORS.secondary,
-    fontSize: 14,
+    fontSize: normalize(14),
   },
   content: {
-    paddingHorizontal: 16,
-    paddingTop: 2,
-    paddingBottom: 16,
+    paddingHorizontal: normalize(16),
+    paddingTop: normalize(2),
+    paddingBottom: normalize(16),
   },
   row: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginBottom: 6,
-    marginTop: 6,
+    marginBottom: normalize(6),
+    marginTop: normalize(6),
   },
   star: {
-    fontSize: 15,
+    fontSize: normalize(15),
     color: '#f1c40f',
     fontWeight: '700',
   },
   price: {
-    fontSize: 18,
+    fontSize: normalize(18),
     color: COLORS.primary,
     fontWeight: '800',
   },
   subheading: {
-    fontSize: 16,
+    fontSize: normalize(16),
     fontWeight: '700',
     color: COLORS.secondary,
-    marginTop: 6,
-    marginBottom: 2,
+    marginTop: normalize(6),
+    marginBottom: normalize(2),
   },
   text: {
-    fontSize: 14,
+    fontSize: normalize(14),
     color: COLORS.black,
-    marginBottom: 6,
+    marginBottom: normalize(6),
   },
   description: {
-    fontSize: 14,
+    fontSize: normalize(14),
     color: COLORS.black,
-    lineHeight: 22,
-    marginBottom: 6,
+    lineHeight: normalize(22),
+    marginBottom: normalize(6),
   },
   featureItem: {
-    fontSize: 14,
+    fontSize: normalize(14),
     color: COLORS.black,
-    marginLeft: 8,
-    marginTop: 4,
-    marginBottom: 2,
+    marginLeft: normalize(8),
+    marginTop: normalize(4),
+    marginBottom: normalize(2),
   },
   center: {
     flex: 1,
@@ -216,7 +213,7 @@ const styles = StyleSheet.create({
   },
   errorText: {
     color: 'red',
-    fontSize: 16,
-    padding: 10,
+    fontSize: normalize(16),
+    padding: normalize(10),
   },
 });

@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   Image,
   SafeAreaView,
@@ -6,15 +7,14 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+import {useNavigation} from '@react-navigation/native';
 import {defaultScreenStyle} from '../constants/defaultScreenStyles';
 import normalize from '../utils/normalize';
-import {useDispatch, useSelector} from 'react-redux';
 import {COLORS} from '../theme/colors';
+import {ROUTES} from '../navigation/routes';
 import LoginRegister from '../components/LoginRegister';
 import {logoutUser} from '../store/actions/authActions';
-import {useNavigation} from '@react-navigation/native';
-import {ROUTES} from '../navigation/routes';
 
 const ProfileScreen = () => {
   const {user} = useSelector(state => state.auth);

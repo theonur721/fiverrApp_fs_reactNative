@@ -1,5 +1,10 @@
 import {createSlice} from '@reduxjs/toolkit';
-import {loginUser, logoutUser, registerUser} from '../actions/authActions';
+import {
+  loginUser,
+  logoutUser,
+  registerUser,
+  loadUserFromStorage,
+} from '../actions/authActions';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const initialState = {
@@ -20,7 +25,7 @@ const authSlice = createSlice({
   },
   extraReducers: builder => {
     builder
-      //REGISTER
+      // REGISTER
       .addCase(registerUser.pending, state => {
         state.loading = true;
         state.error = null;
@@ -29,6 +34,7 @@ const authSlice = createSlice({
         state.loading = false;
         state.user = actions.payload.user;
         state.token = actions.payload.token;
+        state.isAuthenticated = true;
         AsyncStorage.setItem(
           'user',
           JSON.stringify({
@@ -41,7 +47,7 @@ const authSlice = createSlice({
         state.loading = false;
         state.error = actions.payload;
       })
-      //LOGIN
+      // LOGIN
       .addCase(loginUser.pending, state => {
         state.loading = true;
         state.error = null;
@@ -50,7 +56,6 @@ const authSlice = createSlice({
         state.loading = false;
         state.user = actions.payload.user;
         state.token = actions.payload.token;
-        state.error = null;
         state.isAuthenticated = true;
         AsyncStorage.setItem(
           'user',
@@ -63,15 +68,25 @@ const authSlice = createSlice({
       .addCase(loginUser.rejected, (state, actions) => {
         state.loading = false;
         state.error = actions.payload;
-        state.isAuthenticated = false; // 🔥 EKLENDİ
+        state.isAuthenticated = false;
       })
-      //LOGOUT
+      // LOGOUT
       .addCase(logoutUser.fulfilled, (state, actions) => {
         state.loading = false;
         state.user = null;
         state.token = null;
-        state.isAuthenticated = false; // 🔥 EKLENDİ
-        AsyncStorage.removeItem('user'); // Token ve kullanıcı bilgilerini kaldır
+        state.isAuthenticated = false;
+      })
+      // LOAD FROM STORAGE
+      .addCase(loadUserFromStorage.fulfilled, (state, actions) => {
+        state.user = actions.payload.user;
+        state.token = actions.payload.token;
+        state.isAuthenticated = true;
+      })
+      .addCase(loadUserFromStorage.rejected, (state, actions) => {
+        state.user = null;
+        state.token = null;
+        state.isAuthenticated = false;
       });
   },
 });

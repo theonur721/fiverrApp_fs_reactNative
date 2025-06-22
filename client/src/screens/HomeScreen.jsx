@@ -1,24 +1,24 @@
+import React, {useState} from 'react';
 import {
   Image,
+  Keyboard,
   StyleSheet,
   Text,
   TextInput,
-  View,
   TouchableOpacity,
-  Keyboard,
+  View,
 } from 'react-native';
-import React, {useState} from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import {defaultScreenStyle} from '../constants/defaultScreenStyles';
-import {COLORS} from '../theme/colors';
-import LoginRegister from '../components/LoginRegister';
-import normalize from '../utils/normalize';
 import {useDispatch, useSelector} from 'react-redux';
+import {useNavigation} from '@react-navigation/native';
+import {SearchNormal} from 'iconsax-react-native';
+import {defaultScreenStyle} from '../constants/defaultScreenStyles';
+import normalize from '../utils/normalize';
+import {COLORS} from '../theme/colors';
+import {ROUTES} from '../navigation/routes';
+import LoginRegister from '../components/LoginRegister';
 import Categories from './homeDetail/Categories';
 import {setSearch} from '../store/slice/gigSlice';
-import {useNavigation} from '@react-navigation/native';
-import {ROUTES} from '../navigation/routes';
-import {SearchNormal} from 'iconsax-react-native';
 
 const HomeScreen = () => {
   const {user} = useSelector(state => state.auth);

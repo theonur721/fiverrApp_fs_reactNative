@@ -1,28 +1,28 @@
+import React, {useState} from 'react';
 import {
+  ActivityIndicator,
+  Image,
   StyleSheet,
   Text,
   TextInput,
   TouchableOpacity,
   View,
-  Image,
-  ActivityIndicator,
 } from 'react-native';
-import React, {useState} from 'react';
+import {SafeAreaView} from 'react-native-safe-area-context';
 import {useFormik} from 'formik';
 import * as Yup from 'yup';
-import Button from '../../components/Button';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import {defaultScreenStyle} from '../../constants/defaultScreenStyles';
-import Toggler from '../../components/Toggler';
-import {COLORS} from '../../theme/colors';
-import {ArrowLeft2} from 'iconsax-react-native';
-import {useNavigation} from '@react-navigation/native';
-import {ROUTES} from '../../navigation/routes';
 import {launchImageLibrary} from 'react-native-image-picker';
-import {useDispatch, useSelector} from 'react-redux';
-import {registerUser} from '../../store/actions/authActions';
 import Toast from 'react-native-toast-message';
+import {useDispatch, useSelector} from 'react-redux';
+import {useNavigation} from '@react-navigation/native';
+import {registerUser} from '../../store/actions/authActions';
+import {defaultScreenStyle} from '../../constants/defaultScreenStyles';
 import normalize from '../../utils/normalize';
+import {COLORS} from '../../theme/colors';
+import {ROUTES} from '../../navigation/routes';
+import Button from '../../components/Button';
+import Toggler from '../../components/Toggler';
+import {ArrowLeft2} from 'iconsax-react-native';
 
 const RegisterScreen = () => {
   const {loading} = useSelector(state => state.auth);

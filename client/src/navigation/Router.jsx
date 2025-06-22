@@ -1,15 +1,15 @@
-import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import React from 'react';
+import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {ArrowLeft2} from 'iconsax-react-native';
 import {ROUTES} from './routes';
 import Tabrouter from './Tabrouter';
 import LoginScreen from '../screens/auth/LoginScreen';
 import RegisterScreen from '../screens/auth/RegisterScreen';
 import GigScreen from '../screens/gig/GigScreen';
-import {ArrowLeft2} from 'iconsax-react-native'; // kullanıyorsan
-import {COLORS} from '../theme/colors'; // renk dosyan
 import AddGigScreen from '../screens/gig/AddGigScreen';
 import GigDetail from '../screens/gig/GigDetail';
+import {COLORS} from '../theme/colors';
 
 const Stack = createNativeStackNavigator();
 

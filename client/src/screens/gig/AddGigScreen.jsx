@@ -9,11 +9,12 @@ import {
   Alert,
 } from 'react-native';
 import React, {useState} from 'react';
-import {launchImageLibrary} from 'react-native-image-picker';
-import {Picker} from '@react-native-picker/picker';
 import {useDispatch, useSelector} from 'react-redux';
 import {addGig} from '../../store/actions/gigActions';
 import {categoriesNames} from '../../constants/categoriesList';
+import {launchImageLibrary} from 'react-native-image-picker';
+import {Picker} from '@react-native-picker/picker';
+import normalize from '../../utils/normalize';
 
 const AddGigScreen = () => {
   const dispatch = useDispatch();
@@ -206,40 +207,40 @@ export default AddGigScreen;
 
 const styles = StyleSheet.create({
   container: {
-    padding: 16,
-    paddingBottom: 100,
+    padding: normalize(16),
+    paddingBottom: normalize(100),
   },
   label: {
-    fontSize: 16,
+    fontSize: normalize(16),
     fontWeight: '600',
-    marginVertical: 8,
+    marginVertical: normalize(8),
   },
   input: {
     borderWidth: 1,
     borderColor: '#ccc',
-    padding: 12,
-    borderRadius: 6,
+    padding: normalize(12),
+    borderRadius: normalize(6),
   },
   pickerContainer: {
     borderWidth: 1,
     borderColor: '#ccc',
-    borderRadius: 6,
+    borderRadius: normalize(6),
     overflow: 'hidden',
   },
   coverImage: {
     width: '100%',
-    height: 200,
-    marginTop: 10,
-    borderRadius: 8,
+    height: normalize(200),
+    marginTop: normalize(10),
+    borderRadius: normalize(8),
   },
   imagesContainer: {
-    marginTop: 10,
+    marginTop: normalize(10),
     flexDirection: 'row',
   },
   image: {
-    width: 100,
-    height: 100,
-    marginRight: 8,
-    borderRadius: 8,
+    width: normalize(100),
+    height: normalize(100),
+    marginRight: normalize(8),
+    borderRadius: normalize(8),
   },
 });

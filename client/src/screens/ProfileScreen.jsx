@@ -29,77 +29,46 @@ const ProfileScreen = () => {
     <SafeAreaView style={defaultScreenStyle.safeAreaContainer}>
       <View style={defaultScreenStyle.container}>
         {user ? (
-          <View style={styles.topSection}>
-            <View style={styles.userInfo}>
-              <Text style={styles.username}>{user.username}</Text>
-              <Text style={styles.email}>{user.email}</Text>
-              <Text style={styles.userDetail}>{user.country}</Text>
-              <Text style={styles.userCreatedat}>
-                Created at: {user.createdAt}
-              </Text>
+          <>
+            <View style={styles.topSection}>
+              <Image style={styles.image} source={{uri: user.photo}} />
+              <View style={styles.userInfo}>
+                <Text style={styles.username}>@{user.username}</Text>
+                <Text style={styles.email}>{user.email}</Text>
+                <Text style={styles.userDetail}>{user.country}</Text>
+                <Text style={styles.userCreatedat}>
+                  Joined: {user.createdAt}
+                </Text>
 
-              {/* isSeller kontrolü */}
-              {user.isSeller && (
-                <View style={styles.sellerInfoContainer}>
-                  <Text style={styles.sellerStatus}>
-                    Seller Status: {user.isSeller ? 'Yes' : 'No'}
-                  </Text>
-                  <Text style={styles.userDetail}>Phone: {user.phone}</Text>
-                  <Text style={styles.userDetail}>
-                    Description: {user.desc}
-                  </Text>
-                </View>
-              )}
+                {user.isSeller && (
+                  <View style={styles.sellerInfoContainer}>
+                    <Text style={styles.sellerStatus}>Seller Profile</Text>
+                    <Text style={styles.userDetail}>Phone: {user.phone}</Text>
+                    <Text style={styles.userDetail}>
+                      Description: {user.desc}
+                    </Text>
+                  </View>
+                )}
+              </View>
             </View>
 
-            {/* Kullanıcının profil resmini dinamik olarak user'dan al */}
-            <Image
-              style={styles.image}
-              source={{
-                uri: user.photo,
-              }}
-            />
-          </View>
-        ) : (
-          <>
-            <Text style={styles.noUserData}>New here? 👋🙂</Text>
-            <Text style={styles.noUserDataDesc}>
-              Sign up or log in to join the community!
-            </Text>
+            <View style={styles.buttonsSection}>
+              <ProfileButton label="Services" />
+              <ProfileButton
+                label="Add Service"
+                onPress={() => navigation.navigate(ROUTES.ADDGIG)}
+              />
+              <ProfileButton label="Orders" />
+              <ProfileButton label="Messages" />
+              <ProfileButton label="Logout" onPress={handleLogout} isLogout />
+            </View>
           </>
-        )}
-
-        {user ? (
-          <View style={styles.buttonsSection}>
-            <TouchableOpacity style={styles.buttonContainer}>
-              <Text style={styles.buttonText}>Services</Text>
-            </TouchableOpacity>
-            <View style={styles.separator} />
-            <TouchableOpacity
-              onPress={() => navigation.navigate(ROUTES.ADDGIG)}
-              style={styles.buttonContainer}>
-              <Text style={styles.buttonText}>Add Service</Text>
-            </TouchableOpacity>
-            <View style={styles.separator} />
-
-            <TouchableOpacity style={styles.buttonContainer}>
-              <Text style={styles.buttonText}>Orders</Text>
-            </TouchableOpacity>
-            <View style={styles.separator} />
-
-            <TouchableOpacity style={styles.buttonContainer}>
-              <Text style={styles.buttonText}>Messages</Text>
-            </TouchableOpacity>
-            <View style={styles.separator} />
-
-            <TouchableOpacity
-              onPress={() => handleLogout()}
-              style={styles.buttonContainer}>
-              <Text style={styles.buttonText}>Exit</Text>
-            </TouchableOpacity>
-          </View>
         ) : (
-          <View style={styles.buttonsSection}>
+          <View style={styles.noUserBox}>
+            <Text style={styles.noUserData}>👋 Welcome!</Text>
+            <Text style={styles.noUserDataDesc}>
+              Sign up or log in to join the Fiverr community.
+            </Text>
             <LoginRegister />
           </View>
         )}
@@ -110,88 +79,110 @@ const ProfileScreen = () => {
 
 export default ProfileScreen;
 
+// 🔹 Özel buton bileşeni
+const ProfileButton = ({label, onPress, isLogout}) => (
+  <TouchableOpacity
+    onPress={onPress}
+    style={[
+      styles.buttonContainer,
+      isLogout && {backgroundColor: COLORS.primary + '10'},
+    ]}>
+    <Text style={[styles.buttonText, isLogout && {color: COLORS.primary}]}>
+      {label}
+    </Text>
+  </TouchableOpacity>
+);
+
 const styles = StyleSheet.create({
   topSection: {
     flexDirection: 'row',
     alignItems: 'flex-start',
+    gap: normalize(16),
     marginBottom: normalize(30),
+  },
+  image: {
+    width: normalize(90),
+    height: normalize(90),
+    borderRadius: 45,
+    borderWidth: 2,
+    borderColor: COLORS.primary,
   },
   userInfo: {
     flex: 1,
     justifyContent: 'flex-start',
-    marginRight: normalize(20),
-    paddingVertical: normalize(10), // User info'ya üstten ve alttan padding ekledim
+    paddingVertical: normalize(4),
   },
   username: {
-    fontSize: normalize(22),
-    fontWeight: 'bold',
-    marginBottom: normalize(8), // Aralarına biraz daha boşluk ekledim
-  },
-  email: {
-    fontSize: normalize(16),
-    color: COLORS.darkGray,
+    fontSize: normalize(20),
     fontWeight: 'bold',
     marginBottom: normalize(6),
+    color: COLORS.black,
+  },
+  email: {
+    fontSize: normalize(15),
+    color: COLORS.darkGray,
+    marginBottom: normalize(4),
   },
   userDetail: {
-    fontSize: normalize(15),
+    fontSize: normalize(14),
+    color: COLORS.black,
+    marginBottom: normalize(4),
+  },
+  userCreatedat: {
+    fontSize: normalize(13),
+    color: COLORS.darkGray,
     marginBottom: normalize(6),
   },
   sellerInfoContainer: {
-    marginTop: normalize(10), // Seller kısmı ile üst bilgilerin arasında boşluk
-    paddingLeft: normalize(10), // Seller kısmını daha belirgin yapmak için biraz içeriye çekiyoruz
-    borderLeftWidth: normalize(2),
-    borderLeftColor: COLORS.primary, // Seller bilgilerini ayırt etmek için yeşil renk ekledim
-    paddingVertical: normalize(10),
+    marginTop: normalize(8),
+    paddingLeft: normalize(10),
+    borderLeftWidth: 2,
+    borderLeftColor: COLORS.primary,
   },
   sellerStatus: {
-    fontSize: normalize(16),
+    fontSize: normalize(15),
     fontWeight: 'bold',
-    color: COLORS.primary, // Seller status için yeşil renk
-    marginBottom: normalize(6),
-  },
-  image: {
-    width: normalize(100),
-    height: normalize(100),
-    borderRadius: normalize(50),
+    color: COLORS.primary,
+    marginBottom: normalize(4),
   },
   buttonsSection: {
-    alignItems: 'center',
-    borderTopWidth: normalize(1),
-    borderTopColor: '#ccc',
+    gap: normalize(12),
+    marginTop: normalize(10),
   },
   buttonContainer: {
     width: '100%',
-    paddingVertical: normalize(15),
-    paddingHorizontal: normalize(10),
-    backgroundColor: '#fff',
+    paddingVertical: normalize(14),
+    paddingHorizontal: normalize(12),
+    backgroundColor: COLORS.white,
+    borderRadius: normalize(10),
+    borderWidth: 1,
+    borderColor: COLORS.lightGray,
+    shadowColor: COLORS.black,
+    shadowOpacity: 0.05,
+    shadowOffset: {width: 0, height: 2},
+    shadowRadius: 4,
+    elevation: 2,
   },
   buttonText: {
-    fontSize: normalize(18),
-    color: '#333',
-  },
-  separator: {
-    height: normalize(1),
-    backgroundColor: '#ccc',
-    marginHorizontal: normalize(10),
-  },
-  userCreatedat: {
     fontSize: normalize(16),
-    marginBottom: normalize(6),
-    color: COLORS.darkGray,
+    color: COLORS.black,
+    fontWeight: '500',
+  },
+  noUserBox: {
+    alignItems: 'center',
+    marginTop: normalize(50),
+    paddingHorizontal: normalize(20),
   },
   noUserData: {
-    fontSize: normalize(30),
-    color: COLORS.darkGray,
-    textAlign: 'center',
-    marginTop: normalize(20),
-    marginTop: normalize(50),
+    fontSize: normalize(28),
+    fontWeight: 'bold',
+    color: COLORS.primary,
+    marginBottom: normalize(8),
   },
   noUserDataDesc: {
-    fontSize: normalize(18),
+    fontSize: normalize(16),
     color: COLORS.darkGray,
     textAlign: 'center',
-    marginTop: normalize(10),
-    marginBottom: normalize(20),
+    marginBottom: normalize(24),
   },
 });
